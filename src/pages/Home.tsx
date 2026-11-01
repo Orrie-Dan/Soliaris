@@ -4,7 +4,9 @@ import Footer from "@/components/Footer";
 import Magnet from "@/components/Magnet";
 import RegionalMap from "@/components/RegionalMap";
 import usePageMeta from "@/usePageMeta";
-import { NEWS } from "@/data/news";
+import { NEWS, formatNewsDate } from "@/data/news";
+
+const [featured, ...rest] = NEWS;
 
 const Arrow = ({ size = 14, width = 2.4 }: { size?: number; width?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={width} aria-hidden="true">
@@ -304,24 +306,61 @@ export default function HomePage() {
               future for the region.
             </p>
           </div>
-          <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {NEWS.map((item) => (
-              <Link key={item.slug} to={`/news/${item.slug}`} className="lift-card flex flex-col overflow-hidden rounded-md border border-cardline bg-white text-inherit">
-                <figure className="m-0 h-[190px] overflow-hidden">
-                  <img className="zoom-img h-full w-full object-cover" src={item.image.src} alt={item.image.alt} />
-                </figure>
-                <div className="flex flex-1 flex-col p-[26px] pb-7">
-                  <span className="newstag">{item.tag}</span>
-                  <h3 className="m-0 mb-2.5 mt-3.5 font-heading text-lg font-extrabold leading-[1.35] text-navy">{item.title}</h3>
-                  <p className="m-0 mb-[18px] flex-1 text-[13.5px] leading-[1.65] text-inkSoft">{item.summary}</p>
-                  <span className="learnmore">
-                    READ MORE
-                    <Arrow size={13} />
-                  </span>
+          {/* Newest story gets a wide featured card; any older ones fall into a grid below it. */}
+          {featured && (
+            <Link to={`/news/${featured.slug}`} className="lift-card grid overflow-hidden rounded-md border border-cardline bg-white text-inherit lg:grid-cols-[1.15fr_1fr]">
+              <figure className="relative m-0 h-[280px] overflow-hidden sm:h-[360px] lg:h-auto lg:min-h-[440px]">
+                <img className="zoom-img absolute inset-0 h-full w-full object-cover" src={featured.image.src} alt={featured.image.alt} />
+              </figure>
+              <div className="flex flex-col p-8 sm:p-10 lg:p-12">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <span className="newstag">{featured.tag}</span>
+                  <time dateTime={featured.date} className="text-[12.5px] font-semibold tracking-[0.04em] text-inkSoft">
+                    {formatNewsDate(featured.date)}
+                  </time>
                 </div>
-              </Link>
-            ))}
-          </div>
+                <h3 className="m-0 mb-4 mt-5 font-heading text-[26px] font-extrabold leading-[1.25] tracking-[-0.01em] text-navy sm:text-[30px]">
+                  {featured.title}
+                </h3>
+                <p className="m-0 mb-8 text-[15px] leading-[1.7] text-ink">{featured.summary}</p>
+                {featured.figures && (
+                  <dl className="m-0 mb-9 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-cardline pt-7">
+                    {featured.figures.slice(0, 4).map((f) => (
+                      <div key={f.label} className="flex flex-col">
+                        {/* dt must come first in a <dl>; order-* shows the figure above its label */}
+                        <dt className="order-2 text-[12.5px] leading-[1.5] text-inkSoft">{f.label}</dt>
+                        <dd className="order-1 m-0 mb-1 font-heading text-[22px] font-extrabold leading-[1.1] text-teal">{f.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                <span className="learnmore mt-auto">
+                  READ THE FULL STORY
+                  <Arrow size={13} />
+                </span>
+              </div>
+            </Link>
+          )}
+          {rest.length > 0 && (
+            <div className="mt-6 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((item) => (
+                <Link key={item.slug} to={`/news/${item.slug}`} className="lift-card flex flex-col overflow-hidden rounded-md border border-cardline bg-white text-inherit">
+                  <figure className="m-0 h-[190px] overflow-hidden">
+                    <img className="zoom-img h-full w-full object-cover" src={item.image.src} alt={item.image.alt} />
+                  </figure>
+                  <div className="flex flex-1 flex-col p-[26px] pb-7">
+                    <span className="newstag">{item.tag}</span>
+                    <h3 className="m-0 mb-2.5 mt-3.5 font-heading text-lg font-extrabold leading-[1.35] text-navy">{item.title}</h3>
+                    <p className="m-0 mb-[18px] flex-1 text-[13.5px] leading-[1.65] text-inkSoft">{item.summary}</p>
+                    <span className="learnmore">
+                      READ MORE
+                      <Arrow size={13} />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
