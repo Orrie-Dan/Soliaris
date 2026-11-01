@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font stacks referenced by tailwind.config.ts and the design classes below
+   (the faces are self-hosted via @fontsource, imported in main.tsx). */
+:root {
+  --font-manrope: "Manrope";
+  --font-inter: "Inter";
+  --font-baskerville: "Libre Baskerville";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white font-body text-navy;
+  margin: 0;
+}
+
+@layer components {
+  /* ---- shared typography ---- */
+  .eyebrow {
+    @apply flex items-center gap-3.5 font-body text-xs font-bold tracking-[0.2em] text-navy;
+  }
+  .eyebrow::after {
+    content: "";
+    width: 44px;
+    height: 2px;
+    @apply bg-teal;
+  }
+  .eyebrow-dark {
+    @apply flex items-center gap-3.5 font-body text-[11px] font-bold tracking-[0.2em] text-white;
+  }
+  .eyebrow-dark::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    @apply bg-gold;
+  }
+
+  /* ---- buttons ---- */
+  .btn-gold {
+    @apply inline-flex items-center gap-2.5 rounded bg-gold px-7 py-4 font-heading text-sm font-bold tracking-[0.05em] text-navy transition-all duration-200;
+  }
+  .btn-gold:hover {
+    @apply -translate-y-0.5 text-deep shadow-[0_10px_24px_rgba(246,183,39,0.35)];
+  }
+  .btn-teal {
+    @apply inline-flex items-center gap-2 rounded-full bg-teal px-6 py-[13px] font-heading text-[13px] font-bold tracking-[0.04em] text-white transition-colors duration-200;
+  }
+  .btn-teal:hover {
+    @apply bg-[#067f6f] text-white;
+  }
+  .btn-outline-light {
+    @apply inline-flex items-center gap-2.5 rounded border-[1.5px] border-white/75 bg-transparent px-7 py-4 font-heading text-sm font-bold tracking-[0.05em] text-white transition-colors duration-200;
+  }
+  .btn-outline-light:hover {
+    @apply border-gold text-gold;
+  }
+
+  /* ---- navigation ---- */
+  .navlink {
+    @apply whitespace-nowrap border-b-2 border-transparent px-0.5 py-1.5 font-body text-[13px] font-semibold tracking-[0.02em] text-navy transition-colors duration-200;
+  }
+  .navlink:hover {
+    @apply text-teal;
+  }
+  .navlink.active {
+    @apply border-teal text-teal;
+  }
+  .nav-overlay .navlink {
+    color: #ffffff;
+    text-shadow: 0 1px 10px rgba(3, 27, 51, 0.5);
+  }
+  .nav-overlay .navlink:hover,
+  .nav-overlay .navlink.active {
+    @apply text-gold;
+    border-color: theme("colors.gold");
+  }
+
+  /* ---- cards ---- */
+  .lift-card {
+    @apply transition-all duration-300;
+  }
+  .lift-card:hover {
+    @apply -translate-y-1.5 shadow-[0_18px_40px_rgba(6,41,86,0.12)];
+  }
+  .zoom-img {
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .lift-card:hover .zoom-img,
+  .zoom-frame:hover .zoom-img {
+    transform: scale(1.07);
+  }
+  .learnmore {
+    @apply inline-flex items-center gap-2 font-heading text-xs font-bold tracking-[0.06em] text-goldDark transition-colors;
+  }
+  .lift-card:hover .learnmore {
+    @apply text-navy;
+  }
+  .newstag {
+    @apply self-start rounded-full border px-3 py-1.5 font-body text-[10.5px] font-bold tracking-[0.14em];
+    color: #c7920f;
+    border-color: rgba(246, 183, 39, 0.27);
+    background: rgba(246, 183, 39, 0.06);
+  }
+
+  /* ---- hero entrance ---- */
+  .heroFade {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: fadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.28s; }
+  .d3 { animation-delay: 0.46s; }
+  .d4 { animation-delay: 0.64s; }
+
+  /* ---- magnet proximity items ---- */
+  .magnet-item {
+    transition: transform 0.35s ease-out;
+    will-change: transform;
+  }
+}
+
+/* ---- interior-page design classes (ported verbatim from the approved design) ---- */
+.abtab{font:700 12px var(--font-inter),sans-serif;letter-spacing:.12em;color:#6b7c8d;background:none;border:none;border-bottom:2.5px solid transparent;padding:22px 2px 19px;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap}
+.abtab:hover{color:#062956}
+.abtab.active{color:#062956;border-bottom-color:#062956}
+.srow{border-bottom:1px solid #e9eef3}
+.srow.rev .srfig{order:2}
+.srow.rev .srcontent{order:1}
+.srow.rev .srarrow{order:3}
+.rownum{display:flex;align-items:center;gap:12px;margin:0 0 12px;font:800 12px var(--font-manrope),sans-serif;color:#F6B727;letter-spacing:.24em}
+.rownum::after{content:"";width:34px;height:2px;background:#F6B727;opacity:.45}
+.srow .srimg{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.srow:hover .srimg{transform:scale(1.06)}
+.srow .srarrow{transition:all .3s}
+.srow:hover .srarrow{background:#F6B727;border-color:#F6B727 !important;color:#062956;transform:translateX(6px)}
+.srow:hover .learnmore svg{transform:translateX(4px)}
+.learnmore svg{transition:transform .25s}
+.storyimg{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.storyframe:hover .storyimg{transform:scale(1.05)}
+.pill:hover svg{transform:scale(1.1)}
+.pill svg{transition:transform .25s}
+.fpill{font:700 12px var(--font-inter),sans-serif;letter-spacing:.08em;padding:11px 22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.45);background:rgba(3,27,51,.35);color:#FFFFFF;cursor:pointer;transition:all .25s;white-space:nowrap}
+.fpill:hover{border-color:#F6B727;color:#F6B727}
+.fpill.active{background:#F6B727;border-color:#F6B727;color:#062956}
+.ctab{font:700 12px var(--font-inter),sans-serif;letter-spacing:.08em;padding:11px 20px;border-radius:999px;border:1.5px solid #d4dde5;background:#FFFFFF;color:#44566b;cursor:pointer;transition:all .25s;white-space:nowrap}
+.ctab:hover{border-color:#079B87;color:#079B87}
+.ctab.active{background:#079B87;border-color:#079B87;color:#FFFFFF}
+.fld{display:flex;flex-direction:column;gap:7px;flex:1 1 240px;min-width:220px}
+.fld label{font:600 12px var(--font-inter),sans-serif;letter-spacing:.06em;color:#44566b}
+.fld input,.fld select,.fld textarea{font:400 14px var(--font-inter),sans-serif;color:#062956;padding:13px 14px;border:1.5px solid #d4dde5;border-radius:4px;background:#FFFFFF;transition:border-color .2s,box-shadow .2s;width:100%;box-sizing:border-box}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:#079B87;box-shadow:0 0 0 3px rgba(7,155,135,.14)}
+.fld textarea{resize:vertical;min-height:110px}
+.errbox{background:#fdf2f2;border:1px solid #f0c9c9;color:#8a2f2f;font:500 13px/1.5 var(--font-inter),sans-serif;padding:12px 16px;border-radius:4px}
+.okbox{background:#eefaf4;border:1px solid #bfe8d2;color:#13613f;font:500 13.5px/1.6 var(--font-inter),sans-serif;padding:16px 18px;border-radius:4px}
+.ptrack{position:absolute;left:8%;right:8%;top:32px;height:2px;background:#dbe3ea}
+.pfill{position:absolute;left:0;top:0;height:100%;width:0;background:#079B87;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.lit .pfill{width:100%}
+.pstage{flex:1 1 200px;min-width:180px;position:relative;text-align:center;padding:0 16px}
+.sicon{width:64px;height:64px;border-radius:50%;border:2px solid #dbe3ea;background:#FFFFFF;display:flex;align-items:center;justify-content:center;margin:0 auto;position:relative;transition:border-color .5s,box-shadow .5s}
+.lit .s1 .sicon{transition-delay:.1s}
+.lit .s2 .sicon{transition-delay:.5s}
+.lit .s3 .sicon{transition-delay:.9s}
+.lit .s4 .sicon{transition-delay:1.3s}
+.lit .sicon{border-color:#079B87;box-shadow:0 0 0 6px rgba(7,155,135,.12)}
+.pcat{position:relative;flex:1 1 420px;min-width:300px;height:280px;border-radius:6px;overflow:hidden;display:block}
+.pcat .pcimg{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.pcat:hover .pcimg{transform:scale(1.07)}
+.pcat .pcarrow{transition:all .3s}
+.pcat:hover .pcarrow{background:#F6B727;border-color:#F6B727;color:#062956;transform:translateX(5px)}
+@media (max-width:900px){ .ptrack{display:none} }
+@media (prefers-reduced-motion:reduce){ .pfill{width:100%} }
+.theme{flex:1 1 180px;min-width:170px;padding:8px 18px;transition:transform .25s}
+.theme:hover{transform:translateY(-5px)}
+.theme svg{transition:transform .25s}
+.theme:hover svg{transform:scale(1.12)}
+
+/* ---- homepage design classes (ported verbatim from the approved design) ---- */
+.btn-goldline{display:inline-flex;align-items:center;gap:10px;border:1.5px solid #F6B727;color:#FFFFFF;font:700 14px var(--font-manrope),sans-serif;letter-spacing:.05em;padding:15px 28px;border-radius:4px;transition:background .2s,color .2s}
+.btn-goldline:hover{background:rgba(246,183,39,.15);color:#FFFFFF}
+.scrollPulse{animation:pulseDown 2.2s ease-in-out infinite}
+@keyframes pulseDown{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.pimg{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.pframe{transition:transform .35s ease-out;will-change:transform}
+.pframe:hover .pimg{transform:skewX(7deg) translateX(-26px) scale(1.07)}
+.ep{transition:flex-grow .55s cubic-bezier(.2,.7,.2,1),transform .35s ease-out;will-change:transform}
+.ep .epimg{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ep .epshade{transition:background .5s}
+.ep:hover{flex-grow:1.45}
+.ep:hover .epimg{transform:skewX(8deg) translateX(-80px) scale(1.09)}
+.ep:hover .epshade{background:linear-gradient(to top,rgba(3,27,51,.92) 12%,rgba(3,27,51,.28) 55%,rgba(3,27,51,.12)) !important}
+.ep:hover .eparrow{background:#F6B727;border-color:#F6B727;color:#062956;transform:translateX(6px)}
+.eparrow{transition:all .3s}
+.opp{overflow:hidden}
+.opp .oppimg{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.opp:hover .oppimg{transform:scale(1.08)}
+.opp:hover .eparrow{background:#F6B727;border-color:#F6B727;color:#062956}
+.impactRow{transition:transform .25s}
+.impactRow:hover{transform:translateX(6px)}
+
+/* ---- regional map (home "Where we focus"), see components/RegionalMap.tsx ---- */
+/* the active arc fades in, then its dashes flow out from Banjul */
+.rm-reveal{animation:rm-in .6s ease}
+@keyframes rm-in{from{opacity:0}}
+.rm-flow{animation:rm-dash 1.1s linear infinite}
+@keyframes rm-dash{to{stroke-dashoffset:-20}}
+.rm-scroll{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .heroFade {
+    opacity: 1;
+    transform: none;
+  }
+  .hero-video {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
