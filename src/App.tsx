@@ -30,6 +30,46 @@ function ScrollToTop() {
   return null;
 }
 
+/**
+ * Section fades: the content of each page section (not the hero, which has its own entrance,
+ * and not background images or overlays, so dark sections never flash white) fades and rises in
+ * as it enters the viewport, and fades up and out as it leaves. Styles are in globals.css
+ * ([data-fx]). Elements only get hidden once this runs, so pre-rendered HTML shows everything.
+ */
+function SectionFade() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const els = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        "#root > div > section:not(:first-of-type) > *, #root > div > footer > *"
+      )
+    ).filter((el) => !el.matches("img, video, picture, [aria-hidden='true']"));
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const el = e.target as HTMLElement;
+          if (e.isIntersecting) el.dataset.fx = "in";
+          else el.dataset.fx = e.boundingClientRect.top < 0 ? "above" : "below";
+        }
+      },
+      { rootMargin: "-6% 0px -6% 0px" }
+    );
+    for (const el of els) {
+      el.dataset.fx = "below";
+      io.observe(el);
+    }
+    return () => {
+      io.disconnect();
+      for (const el of els) delete el.dataset.fx;
+    };
+  }, [pathname]);
+  return null;
+}
+
 /** Every page; also the list pre-rendered to static HTML and listed in the sitemap. */
 export const ROUTES: { path: string; Page: () => React.JSX.Element }[] = [
   { path: "/", Page: HomePage },
@@ -48,6 +88,7 @@ export default function App() {
   return (
     <>
       <ScrollToTop />
+      <SectionFade />
       <Routes>
         {ROUTES.map(({ path, Page }) => (
           <Route key={path} path={path} element={<Page />} />

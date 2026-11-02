@@ -203,13 +203,52 @@ body {
 .impactRow{transition:transform .25s}
 .impactRow:hover{transform:translateX(6px)}
 
-/* ---- regional map (home "Where we focus"), see components/RegionalMap.tsx ---- */
-/* the active arc fades in, then its dashes flow out from Banjul */
-.rm-reveal{animation:rm-in .6s ease}
+/* ---- regional map (home "Where we focus"), see components/RegionalMap.tsx ----
+   Narrow screens: copy, then a crop of the map image (x 590-1700), then the index as chips.
+   From 1280px the section takes the image's 1920x819 shape: the copy sits in the open ocean
+   on the left (x 122-640 of the artwork) and the index in the dark right margin (x 1700+),
+   both in the site's regular type, scaled a little with the width. */
+.rm-stage{left:-53.15%;width:172.97%}
+.rm-hit{width:36px;height:36px;translate:-50% -50%;cursor:pointer}
+.rm-pulse-at{width:0;height:0}
+.rm-ring{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;border:1.5px solid #fff;animation:rm-ring 2s ease-out infinite}
+@keyframes rm-ring{from{transform:scale(.5);opacity:.95}to{transform:scale(2.2);opacity:0}}
+.rm-arrow{width:15px;height:15px}
+.rm-note{animation:rm-in .3s ease}
 @keyframes rm-in{from{opacity:0}}
-.rm-flow{animation:rm-dash 1.1s linear infinite}
-@keyframes rm-dash{to{stroke-dashoffset:-20}}
-.rm-scroll{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+
+@media (min-width:1280px){
+  .rm{display:block;aspect-ratio:1920/819;--row:clamp(30px,2.2vw,42px)}
+  .rm .rm-window{position:absolute;inset:0;margin:0;aspect-ratio:auto}
+  .rm .rm-stage{left:0;width:100%}
+  .rm .rm-hit{width:44px;height:44px}
+
+  .rm .rm-copy{position:absolute;top:0;bottom:0;left:6.35%;width:27%;max-width:none;margin:0;padding:0 0 3% 0;display:flex;flex-direction:column;justify-content:center}
+  .rm .rm-title{font-size:clamp(40px,3.1vw,60px)}
+  .rm .rm-text{max-width:none;font-size:clamp(15px,.9vw,17px)}
+
+  .rm .rm-index{position:absolute;top:0;bottom:0;left:88.4%;right:0;width:auto;max-width:none;margin:0;padding:0;display:flex;align-items:center}
+  .rm .rm-list{display:block;overflow:visible;padding:0}
+  .rm .rm-link{height:var(--row);padding:0 0 0 28px;gap:0;border:0;border-radius:0;font-size:clamp(11px,.78vw,13px);letter-spacing:.08em;color:rgba(255,255,255,.62)}
+  .rm .rm-link:hover{color:#fff}
+  .rm .rm-link.rm-on{font-weight:800;color:#fff}
+  .rm .rm-dot{display:block;position:absolute;left:9px;top:50%;width:7px;height:7px;translate:-50% -50%;border-radius:50%;background:rgba(255,255,255,.35);transition:all .3s}
+  .rm .rm-dot-before{background:#F6B727}
+  .rm .rm-dot-on{width:13px;height:13px;background:#fff;box-shadow:0 0 12px 4px rgba(246,183,39,.5)}
+  .rm .rm-track{display:block;position:absolute;left:8.5px;top:calc(var(--row) / 2);width:1px;height:calc(11 * var(--row));background:rgba(255,255,255,.18)}
+  .rm .rm-track-lit{display:block;position:absolute;left:8px;top:calc((var(--from) + .5) * var(--row));width:2px;height:var(--row);background:#F6B727}
+
+  .rm .rm-note-slot{position:absolute;inset:0;margin:0;padding:0;max-width:none;pointer-events:none}
+  .rm .rm-note{position:absolute;left:var(--nx);top:var(--ny);width:300px;margin:0;translate:-50% 30px;pointer-events:auto}
+  .rm .rm-note-up{translate:-50% calc(-100% - 30px)}
+
+  .rm .rm-legal{position:absolute;left:14.95%;bottom:12px;width:auto;max-width:none;margin:0;padding:0;white-space:nowrap}
+}
+
+/* ---- section fades on scroll, driven by SectionFade in App.tsx ---- */
+[data-fx]{transition:opacity .9s cubic-bezier(.2,.7,.2,1),translate .9s cubic-bezier(.2,.7,.2,1)}
+[data-fx=below]{opacity:0;translate:0 36px}
+[data-fx=above]{opacity:0;translate:0 -24px}
 
 @keyframes fadeUp {
   to {
