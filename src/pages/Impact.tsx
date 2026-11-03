@@ -126,7 +126,7 @@ export default function ImpactPage() {
 
       {/* ============ RESPONSIBLE DEVELOPMENT ============ */}
       <section aria-label="Responsible development" className="flex min-h-[560px] flex-wrap">
-        <figure className="relative m-0 min-h-[380px] min-w-[320px] flex-[1_1_440px]">
+        <figure className="relative m-0 min-h-[380px] min-w-[min(320px,100%)] flex-[1_1_440px]">
           <img
             src="/images/impact-commitment.webp"
             alt="African technician in a safety vest installing a solar panel"
@@ -135,7 +135,7 @@ export default function ImpactPage() {
             style={{ objectPosition: "center 30%" }}
           />
         </figure>
-        <div className="relative flex min-w-[320px] flex-[1_1_440px] items-center overflow-hidden bg-deep">
+        <div className="relative flex min-w-[min(320px,100%)] flex-[1_1_440px] items-center overflow-hidden bg-deep">
           <svg viewBox="0 0 400 400" aria-hidden="true" className="absolute -top-10 right-[-60px] w-[420px] opacity-10">
             <g fill="none" stroke="#079B87" strokeWidth="1.2">
               <path d="M40,200 C40,110 110,40 200,40 C290,40 360,110 360,200 C360,290 290,360 200,360 C110,360 40,290 40,200 Z" />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type Tab = { key: string; label: string; target: string };
 
@@ -20,6 +20,16 @@ export default function ScrollTabs({
   gap?: number;
 }) {
   const [active, setActive] = useState(tabs[0]?.key);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  // when the strip is scrollable (narrow screens), slide the current tab into view
+  useEffect(() => {
+    const list = listRef.current;
+    const link = list?.querySelector<HTMLElement>('[aria-current="location"]');
+    if (!list || !link || list.scrollWidth <= list.clientWidth) return;
+    const target = link.offsetLeft - (list.clientWidth - link.offsetWidth) / 2;
+    list.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }, [active]);
 
   useEffect(() => {
     let frame = 0;
@@ -53,11 +63,12 @@ export default function ScrollTabs({
   return (
     <nav aria-label={ariaLabel} className="border-b border-hairline bg-white shadow-[0_4px_14px_rgba(6,41,86,0.04)]">
       <ul
-        className="mx-auto m-0 flex max-w-site list-none flex-wrap overflow-x-auto px-6 lg:px-10"
-        style={{ gap }}
+        ref={listRef}
+        className="tabstrip relative mx-auto m-0 flex max-w-site list-none gap-7 overflow-x-auto px-6 lg:gap-[var(--tab-gap)] lg:px-10"
+        style={{ "--tab-gap": `${gap}px` } as React.CSSProperties}
       >
         {tabs.map((t) => (
-          <li key={t.key}>
+          <li key={t.key} className="shrink-0">
             <a
               href={`#${t.target}`}
               aria-current={active === t.key ? "location" : undefined}

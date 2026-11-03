@@ -29,7 +29,9 @@ export default function NewsArticlePage({ item }: { item: NewsItem }) {
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top,rgba(3,27,51,.94) 0%,rgba(3,27,51,.6) 45%,rgba(3,27,51,.25) 100%)" }} aria-hidden="true" />
           <div className="relative mx-auto w-full max-w-content px-6 pb-12 pt-32 lg:px-10 lg:pb-16">
             <p className="eyebrow-dark heroFade d1 mb-5">
-              {item.tag} · <time dateTime={item.date}>{formatNewsDate(item.date)}</time>
+              <span>
+                {item.tag} · <time dateTime={item.date} className="whitespace-nowrap">{formatNewsDate(item.date)}</time>
+              </span>
             </p>
             <h1 id="article-title" className="heroFade d2 m-0 max-w-[880px] font-heading text-[32px] font-extrabold leading-[1.12] tracking-[-0.012em] text-white lg:text-[50px]">
               {item.title}

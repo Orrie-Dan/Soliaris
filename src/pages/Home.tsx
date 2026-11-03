@@ -44,14 +44,11 @@ export default function HomePage() {
         <div className="absolute inset-0 mx-auto flex max-w-site flex-col justify-center px-6 lg:px-10">
           <div className="max-w-[760px] pt-[72px]">
             <div className="heroFade d1 mb-[18px] flex items-center gap-4">
-              <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-[1.5px] border-white/80 bg-white/10">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" /></svg>
-              </span>
               <p className="m-0 text-[11px] font-bold leading-[1.8] tracking-[0.24em] text-white">
                 THE ENERGY TRANSITION<br />IN MOTION
               </p>
             </div>
-            <h1 className="heroFade d2 m-0 mb-4 font-heading text-[52px] font-extrabold leading-[0.98] tracking-[-0.015em] text-white lg:text-[82px]">
+            <h1 className="heroFade d2 m-0 mb-4 font-heading text-[44px] font-extrabold leading-[0.98] tracking-[-0.015em] text-white min-[400px]:text-[52px] lg:text-[82px]">
               POWERING A<br /><span className="text-gold">BRIGHTER AFRICA.</span>
             </h1>
             <p className="heroFade d3 m-0 mb-[26px] max-w-[460px] text-[16.5px] leading-[1.6] text-white/95">
@@ -92,7 +89,7 @@ export default function HomePage() {
       {/* ============ SECTION 2 · OUR PURPOSE ============ */}
       <Magnet id="purpose" selector=".pframe" radius={250} pull={0.12} grow={0.03} aria-label="Our purpose" className="bg-white px-6 py-[100px] pt-[110px] lg:px-10">
         <div className="mx-auto flex max-w-content flex-wrap items-center gap-14">
-          <div className="min-w-[320px] flex-[1_1_400px]">
+          <div className="min-w-[min(320px,100%)] flex-[1_1_400px]">
             <p className="eyebrow mb-[26px]">OUR PURPOSE</p>
             <h2 className="m-0 mb-[26px] font-heading text-[42px] font-extrabold leading-[1.02] tracking-[-0.015em] text-navy lg:text-[68px]">
               ENERGY<br />IS MORE<br /><span className="text-teal">THAN POWER.</span>
@@ -104,19 +101,19 @@ export default function HomePage() {
               development and modern infrastructure.
             </p>
           </div>
-          <div className="flex min-w-[320px] flex-[1_1_560px] items-center justify-end gap-[34px]">
-            <div className="flex gap-4 overflow-hidden py-1.5">
+          <div className="flex min-w-[min(320px,100%)] flex-[1_1_560px] items-center justify-end gap-[34px]">
+            <div className="flex min-w-0 flex-1 gap-3 overflow-hidden px-5 py-1.5 sm:flex-[0_1_auto] sm:gap-4 sm:px-0">
               {[
                 { src: "/images/purpose-pylons.webp", alt: "High-voltage transmission towers at dusk" },
                 { src: "/images/purpose-solar.webp", alt: "Solar photovoltaic panels" },
                 { src: "/images/purpose-city.webp", alt: "Aerial view of a growing African city" },
               ].map((img) => (
-                <figure key={img.src} className="pframe m-0 h-[390px] w-[184px] shrink-0 overflow-hidden rounded" style={{ transform: "skewX(-7deg)" }}>
+                <figure key={img.src} className="pframe m-0 h-[300px] min-w-0 flex-1 overflow-hidden rounded sm:h-[390px] sm:w-[184px] sm:flex-none" style={{ transform: "skewX(-7deg)" }}>
                   <img className="pimg h-full object-cover" src={img.src} alt={img.alt} style={{ width: "150%", transform: "skewX(7deg) translateX(-26px)" }} />
                 </figure>
               ))}
             </div>
-            <div aria-hidden="true" className="flex shrink-0 gap-[18px]">
+            <div aria-hidden="true" className="hidden shrink-0 gap-[18px] sm:flex">
               <span className="w-px bg-[#d7dfe6]" />
               <div className="flex flex-col justify-center gap-6">
                 <span className="text-[10px] font-bold tracking-[0.2em] text-[#6b7c8d]">PEOPLE</span>
@@ -134,7 +131,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-site px-6 pb-[34px] lg:px-10">
           <p className="eyebrow-dark m-0">EXPLORE OUR ENERGY SYSTEMS</p>
         </div>
-        <div className="-mx-[70px] flex h-[500px] overflow-hidden">
+        <div className="flex flex-col overflow-hidden md:-mx-[70px] md:h-[500px] md:flex-row">
           {[
             {
               href: "/what-we-do",
@@ -170,13 +167,13 @@ export default function HomePage() {
             <Link
               key={i}
               to={p.href}
-              className="ep relative min-w-[240px] flex-[1_1_0] overflow-hidden"
-              style={{ transform: "skewX(-8deg)", borderRight: p.border ? "2px solid rgba(3,27,51,.9)" : undefined }}
+              className={`ep relative h-[280px] overflow-hidden md:h-auto md:min-w-[240px] md:flex-[1_1_0] ${p.border ? "border-b-2 border-deep/90 md:border-b-0 md:border-r-2" : ""}`}
+              style={{ transform: "skewX(-8deg)" }}
             >
               <img className="epimg absolute inset-0 h-full object-cover" src={p.src} alt={p.alt} style={{ width: "140%", transform: "skewX(8deg) translateX(-80px)" }} />
               <span className="epshade absolute inset-0" style={{ background: "linear-gradient(to top,rgba(3,27,51,.96) 10%,rgba(3,27,51,.45) 52%,rgba(3,27,51,.22))" }} aria-hidden="true" />
-              <span className="absolute inset-x-0 bottom-0 block" style={{ padding: p.pad, transform: "skewX(8deg)" }}>
-                <span className="block font-heading text-[30px] font-extrabold leading-[1.1] tracking-[0.01em] text-white">{p.title}</span>
+              <span className="eptext absolute inset-x-0 bottom-0 block" style={{ padding: p.pad, transform: "skewX(8deg)" }}>
+                <span className="block font-heading text-[26px] font-extrabold leading-[1.1] md:text-[clamp(20px,2.4vw,30px)] tracking-[0.01em] text-white">{p.title}</span>
                 <span className="mt-3 block max-w-[240px] text-sm leading-[1.55] text-white/80">{p.copy}</span>
                 <span
                   className="eparrow mt-5 flex h-[46px] w-[46px] items-center justify-center rounded-full border-[1.5px]"
@@ -196,7 +193,7 @@ export default function HomePage() {
       {/* ============ SECTION 5 + 6 · OPPORTUNITIES & IMPACT ============ */}
       <section id="opportunities" aria-label="Development opportunities and impact" className="bg-white px-6 pt-[84px] lg:px-10">
         <div className="mx-auto grid max-w-content gap-12 md:grid-cols-2">
-          <div className="flex min-w-[280px] flex-col justify-end pb-2">
+          <div className="flex min-w-[min(280px,100%)] flex-col justify-end pb-2">
             <p className="eyebrow mb-[22px]">OPPORTUNITIES, NOT PROMISES</p>
             <p className="m-0 max-w-[440px] text-base leading-[1.75] text-ink">
               We focus on identifying and advancing energy development opportunities across renewable
@@ -204,7 +201,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex min-w-[280px] flex-wrap gap-5">
+          <div className="flex min-w-[min(280px,100%)] flex-wrap gap-5">
             {[
               {
                 src: "/images/dev-priorities.webp",
@@ -235,7 +232,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <figure className="relative m-0 min-h-[480px] min-w-[280px] overflow-hidden rounded-md">
+          <figure className="relative m-0 min-h-[480px] min-w-[min(280px,100%)] overflow-hidden rounded-md">
             <img
               src="/images/impact-composite.webp"
               alt="Soliaris Africa sun symbol over sunlit African waterways and forest islands"
@@ -244,8 +241,8 @@ export default function HomePage() {
             />
           </figure>
 
-          <div id="impact" className="flex min-w-[280px] flex-wrap items-center gap-[34px] rounded-md bg-mist px-[46px] py-11">
-            <div className="min-w-[260px] flex-[1.5_1_300px]">
+          <div id="impact" className="flex min-w-[min(280px,100%)] flex-wrap items-center gap-[34px] rounded-md bg-mist px-6 py-10 sm:px-[46px] sm:py-11">
+            <div className="min-w-[min(260px,100%)] flex-[1.5_1_300px]">
               <p className="m-0 mb-4 text-[11px] font-bold tracking-[0.2em] text-ocean">A BRIGHTER, MORE SUSTAINABLE TOMORROW</p>
               <h2 className="m-0 mb-4 font-heading text-[42px] font-extrabold leading-[1.05] tracking-[-0.012em] text-navy">
                 OUR IMPACT<br /><span className="text-teal">GOES FURTHER</span>
@@ -259,7 +256,7 @@ export default function HomePage() {
                 <Arrow />
               </Link>
             </div>
-            <div className="flex min-w-[190px] flex-[1_1_190px] flex-col gap-5 border-l border-[#d9e1e8] pl-7">
+            <div className="flex min-w-[min(190px,100%)] flex-[1_1_190px] flex-col gap-5 border-l border-[#d9e1e8] pl-7">
               {[
                 {
                   icon: <><path d="M5 20c0-8 5-13 14-15-1 9-6 14-14 15Z" /><path d="M5 20c2-5 6-9 10-11" /></>,
@@ -374,13 +371,13 @@ export default function HomePage() {
         />
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg,rgba(3,27,51,.88) 0%,rgba(3,27,51,.66) 55%,rgba(3,27,51,.8) 100%)" }} aria-hidden="true" />
         <div className="relative mx-auto flex w-full max-w-content flex-wrap items-center justify-between gap-12 px-6 py-20 lg:px-10">
-          <div className="min-w-[300px] flex-[1_1_440px]">
+          <div className="min-w-[min(300px,100%)] flex-[1_1_440px]">
             <p className="eyebrow-dark mb-[22px]">PARTNER FOR A BRIGHTER AFRICA</p>
             <h2 className="m-0 font-heading text-[42px] font-extrabold leading-[1.04] tracking-[-0.014em] text-white lg:text-[60px]">
               LET&apos;S DEVELOP<br /><span className="text-gold">WHAT COMES NEXT.</span>
             </h2>
           </div>
-          <div className="min-w-[280px] flex-[0_1_420px]">
+          <div className="min-w-[min(280px,100%)] flex-[0_1_420px]">
             <p className="m-0 mb-[26px] text-[15px] leading-[1.7] text-white/90">
               SOLIARIS AFRICA LTD is open to strategic partnerships, investment opportunities and
               collaborative development across The Gambia and West Africa.

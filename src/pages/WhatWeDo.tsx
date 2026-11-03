@@ -192,7 +192,7 @@ export default function WhatWeDoPage() {
               id={s.id}
               className={`srow flex scroll-mt-[150px] flex-wrap items-center gap-12 py-12 ${i % 2 === 1 ? "rev" : ""} ${i === SOLUTIONS.length - 1 ? "!border-b-0" : ""}`}
             >
-              <figure className="srfig m-0 h-[280px] min-w-[300px] flex-[0_1_480px] overflow-hidden rounded-md">
+              <figure className="srfig m-0 h-[280px] min-w-[min(300px,100%)] flex-[0_1_480px] overflow-hidden rounded-md">
                 <img
                   className="srimg h-full w-full object-cover"
                   src={s.src}
@@ -200,7 +200,7 @@ export default function WhatWeDoPage() {
                   style={s.pos ? { objectPosition: s.pos } : undefined}
                 />
               </figure>
-              <div className="srcontent min-w-[300px] flex-[1_1_380px]">
+              <div className="srcontent min-w-[min(300px,100%)] flex-[1_1_380px]">
                 <p className="rownum">{s.num}</p>
                 <h2 className="m-0 mb-3 font-heading text-[26px] font-extrabold leading-[1.2] tracking-[0.01em] text-navy">{s.title}</h2>
                 <p className="m-0 mb-[18px] max-w-[460px] text-[15px] leading-[1.7] text-ink">{s.copy}</p>
@@ -214,7 +214,7 @@ export default function WhatWeDoPage() {
                   <Arrow />
                 </button>
               </div>
-              <span className="srarrow flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#b9c6d2] text-navy" aria-hidden="true">
+              <span className="srarrow hidden h-[50px] xl:flex w-[50px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#b9c6d2] text-navy" aria-hidden="true">
                 <Arrow size={17} width={2.2} />
               </span>
             </div>

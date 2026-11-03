@@ -151,7 +151,7 @@ body {
 .ctab{font:700 12px var(--font-inter),sans-serif;letter-spacing:.08em;padding:11px 20px;border-radius:999px;border:1.5px solid #d4dde5;background:#FFFFFF;color:#44566b;cursor:pointer;transition:all .25s;white-space:nowrap}
 .ctab:hover{border-color:#079B87;color:#079B87}
 .ctab.active{background:#079B87;border-color:#079B87;color:#FFFFFF}
-.fld{display:flex;flex-direction:column;gap:7px;flex:1 1 240px;min-width:220px}
+.fld{display:flex;flex-direction:column;gap:7px;flex:1 1 240px;min-width:min(220px,100%)}
 .fld label{font:600 12px var(--font-inter),sans-serif;letter-spacing:.06em;color:#44566b}
 .fld input,.fld select,.fld textarea{font:400 14px var(--font-inter),sans-serif;color:#062956;padding:13px 14px;border:1.5px solid #d4dde5;border-radius:4px;background:#FFFFFF;transition:border-color .2s,box-shadow .2s;width:100%;box-sizing:border-box}
 .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:#079B87;box-shadow:0 0 0 3px rgba(7,155,135,.14)}
@@ -168,7 +168,7 @@ body {
 .lit .s3 .sicon{transition-delay:.9s}
 .lit .s4 .sicon{transition-delay:1.3s}
 .lit .sicon{border-color:#079B87;box-shadow:0 0 0 6px rgba(7,155,135,.12)}
-.pcat{position:relative;flex:1 1 420px;min-width:300px;height:280px;border-radius:6px;overflow:hidden;display:block}
+.pcat{position:relative;flex:1 1 420px;min-width:min(300px,100%);height:280px;border-radius:6px;overflow:hidden;display:block}
 .pcat .pcimg{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .pcat:hover .pcimg{transform:scale(1.07)}
 .pcat .pcarrow{transition:all .3s}
@@ -202,26 +202,82 @@ body {
 .opp:hover .eparrow{background:#F6B727;border-color:#F6B727;color:#062956}
 .impactRow{transition:transform .25s}
 .impactRow:hover{transform:translateX(6px)}
+@media (max-width:767px){
+  /* phones: the energy panels stack as plain upright cards (the skew is set inline for wider screens) */
+  .ep,.ep:hover{transform:none !important}
+  .ep .epimg,.ep:hover .epimg{width:100% !important;transform:none !important}
+  .ep .eptext{transform:none !important;padding:0 24px 28px !important}
+}
+@media (max-width:1023px){
+  /* What We Do rows stack image-first, whichever side the image sits on when wide */
+  .srow.rev .srfig,.srow.rev .srcontent{order:0}
+}
+
+/* in-page section tabs: one row that scrolls sideways when it doesn't fit */
+.tabstrip{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabstrip::-webkit-scrollbar{display:none}
 
 /* ---- regional map (home "Where we focus"), see components/RegionalMap.tsx ----
-   Narrow screens: copy, then a crop of the map image (x 590-1700), then the index as chips.
-   From 1280px the section takes the image's 1920x819 shape: the copy sits in the open ocean
-   on the left (x 122-640 of the artwork) and the index in the dark right margin (x 1700+),
-   both in the site's regular type, scaled a little with the width. */
-.rm-stage{left:-53.15%;width:172.97%}
-.rm-hit{width:36px;height:36px;translate:-50% -50%;cursor:pointer}
+   Narrow screens: copy, then a crop of the map (x 560-1560 of the 1920x860 frame) showing only
+   the Gambia tag and the market in focus, then the index as chips. From 1280px the section takes
+   the map's 1920x860 shape: the copy sits over the Atlantic, the index in the right margin, and
+   every market is labelled. */
+.rm-window{aspect-ratio:1000/860}
+/* zoom: --zs/--tx/--ty are written on .rm every frame of a flight (RegionalMap.tsx) */
+.rm-stage{left:-56%;width:192%;transform-origin:0 0;transform:translate(calc(var(--tx,0) * 100%),calc(var(--ty,0) * 100%)) scale(var(--zs,1))}
+.rm-flying .rm-stage{will-change:transform}
+/* HTML on the stage (labels, tags, rings) is scaled back by the zoom so it keeps its size. The
+   offsets from the anchor point live in transform, which applies before this scale. */
+.rm-fix{scale:calc(1 / var(--zs,1));transform-origin:0 0}
+.rm-tour-bar{width:100%;transform-origin:0 50%;animation:rm-tour linear both;animation-delay:var(--fly,0ms)}
+/* a picked market's card opens once the map has flown there */
+.rm-note[data-wait]{animation-delay:var(--fly,0ms);animation-fill-mode:backwards}
+@keyframes rm-tour{from{transform:scaleX(0)}}
+.rm-reset{animation:rm-in .3s ease}
+.rm-country{fill:#fff;fill-opacity:0;stroke:#fff;stroke-opacity:.4;stroke-width:1;cursor:pointer;transition:fill-opacity .4s,stroke-opacity .4s,stroke-width .4s,fill .4s,stroke .4s}
+.rm-country:hover{fill-opacity:.07}
+.rm-country-on{fill:#3FD9E8;fill-opacity:.13;stroke:#9BEFF8;stroke-opacity:1;stroke-width:2}
+.rm-country-hub{fill:#F6B727;fill-opacity:.93;stroke:#FFE7A3;stroke-opacity:1;stroke-width:1.5}
+.rm-country-hub:hover{fill-opacity:.95}
+.rm-sel-glow{stroke-opacity:.75;animation:rm-in .4s ease}
+.rm-arc{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.35,.6,.2,1) var(--d),stroke-opacity .5s ease,stroke-width .5s ease,stroke .5s ease}
+.rm-shown .rm-arc{stroke-dashoffset:0}
+.rm-mk{opacity:0;transition:opacity .5s ease var(--d)}
+.rm-shown .rm-mk{opacity:1}
+.rm-ocean{transform:translate(-50%,-50%);font-family:var(--font-manrope),sans-serif;font-size:11px;font-style:italic;font-weight:700;letter-spacing:.42em;line-height:2;text-align:center;text-transform:uppercase;color:rgba(160,220,255,.92);white-space:nowrap;text-shadow:0 0 14px rgba(63,180,240,.45),0 1px 2px rgba(3,27,51,.8)}
+.rm-hub{display:flex;align-items:center;gap:6px;transform:translate(-50%,calc(-100% - 16px));padding:5px 10px;border:1px solid rgba(246,183,39,.85);border-radius:6px;background:rgba(3,27,51,.82);font-family:var(--font-manrope),sans-serif;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.rm-pin{width:13px;height:13px;color:#F6B727}
+.rm-label{display:none;font-family:var(--font-manrope),sans-serif;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 10px rgba(3,27,51,.9);transition:color .3s}
+.rm-label-on{display:block;color:#F6B727;animation:rm-in .25s ease}
+.rm-label[data-side=l]{transform:translate(calc(-100% - 12px),-50%)}
+.rm-label[data-side=r]{transform:translate(12px,-50%)}
+.rm-label[data-side=t]{transform:translate(-50%,calc(-100% - 10px))}
+.rm-label[data-side=b]{transform:translate(-50%,10px)}
+.rm-locator-map{width:110px;height:119px}
+.rm-locator-text{padding-left:18px;border-left:1.5px solid #F6B727;font-family:var(--font-manrope),sans-serif;font-size:12px;font-weight:500;letter-spacing:.24em;line-height:1.85;text-transform:uppercase;color:rgba(255,255,255,.82)}
+@media (prefers-reduced-motion:reduce){
+  .rm-arc,.rm-mk{transition:none}
+  .rm-ring,.rm-note,.rm-sel-glow{animation:none}
+  .rm-spark{display:none}
+}
 .rm-pulse-at{width:0;height:0}
 .rm-ring{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;border:1.5px solid #fff;animation:rm-ring 2s ease-out infinite}
+.rm-ring-hub{left:-22px;top:-22px;width:44px;height:44px;border:1.5px solid rgba(246,183,39,.9);animation:rm-ring-hub 3.3s cubic-bezier(.2,.6,.3,1) infinite}
+@keyframes rm-ring-hub{from{transform:scale(.35);opacity:.9}to{transform:scale(2.1);opacity:0}}
+.rm-note::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#F6B727,rgba(63,217,232,.8))}
 @keyframes rm-ring{from{transform:scale(.5);opacity:.95}to{transform:scale(2.2);opacity:0}}
-.rm-arrow{width:15px;height:15px}
-.rm-note{animation:rm-in .3s ease}
+.rm-note{position:relative;animation:rm-card .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes rm-card{from{opacity:0;transform:translateY(6px)}}
 @keyframes rm-in{from{opacity:0}}
 
 @media (min-width:1280px){
-  .rm{display:block;aspect-ratio:1920/819;--row:clamp(30px,2.2vw,42px)}
+  .rm{display:block;aspect-ratio:1920/860;--row:clamp(30px,2.2vw,42px)}
   .rm .rm-window{position:absolute;inset:0;margin:0;aspect-ratio:auto}
   .rm .rm-stage{left:0;width:100%}
-  .rm .rm-hit{width:44px;height:44px}
+  .rm .rm-ocean{font-size:clamp(13px,.9vw,17px);letter-spacing:.6em}
+  .rm .rm-hub,.rm .rm-label{font-size:clamp(11px,.72vw,14px)}
+  .rm .rm-hub{transform:translate(calc(-100% - 18px),-50%)}
+  .rm .rm-label{display:block}
 
   .rm .rm-copy{position:absolute;top:0;bottom:0;left:6.35%;width:27%;max-width:none;margin:0;padding:0 0 3% 0;display:flex;flex-direction:column;justify-content:center}
   .rm .rm-title{font-size:clamp(40px,3.1vw,60px)}
@@ -239,10 +295,30 @@ body {
   .rm .rm-track-lit{display:block;position:absolute;left:8px;top:calc((var(--from) + .5) * var(--row));width:2px;height:var(--row);background:#F6B727}
 
   .rm .rm-note-slot{position:absolute;inset:0;margin:0;padding:0;max-width:none;pointer-events:none}
-  .rm .rm-note{position:absolute;left:var(--nx);top:var(--ny);width:300px;margin:0;translate:-50% 30px;pointer-events:auto}
-  .rm .rm-note-up{translate:-50% calc(-100% - 30px)}
+  .rm .rm-note{position:absolute;left:clamp(5%,calc((var(--fx) * var(--zs,1) + var(--tx,0)) * 100%),95%);top:clamp(12%,calc((var(--fy) * var(--zs,1) + var(--ty,0)) * 100%),88%);width:280px;margin:0;pointer-events:auto;--g:22px}
+  .rm .rm-note[data-place=r]{translate:var(--g) -50%}
+  .rm .rm-note[data-place=l]{translate:calc(-100% - var(--g)) -50%}
+  .rm .rm-note[data-place=trw]{translate:110px calc(-100% - 8px)}
+  .rm .rm-note[data-place=t]{translate:-50% calc(-100% - var(--g))}
+  .rm .rm-note[data-place=tr]{translate:calc(var(--g) * .6) calc(-100% - var(--g) * .6)}
+  .rm .rm-note[data-place=br]{translate:calc(var(--g) * .6) calc(var(--g) * .6)}
+  .rm .rm-note[data-place=tl]{translate:calc(-100% - var(--g) * .6) calc(-100% - var(--g) * .6)}
+  .rm .rm-note[data-place=bl]{translate:calc(-100% - var(--g) * .6) calc(var(--g) * .6)}
+  .rm .rm-note[data-place=b]{translate:-50% var(--g)}
+  .rm .rm-note[data-place=hub]{translate:70px calc(-100% - 70px)}
 
-  .rm .rm-legal{position:absolute;left:14.95%;bottom:12px;width:auto;max-width:none;margin:0;padding:0;white-space:nowrap}
+  .rm .rm-legal{position:absolute;left:38%;right:13%;bottom:12px;width:auto;max-width:none;margin:0;padding:0}
+}
+@media (min-width:1280px) and (max-width:1535px){
+  /* keep the copy clear of The Gambia's tag */
+  .rm .rm-text{max-width:90%}
+}
+@media (max-width:1279px){
+  /* narrow screens: the one visible market name sits above its marker */
+  .rm-label.rm-label-on[data-side]{transform:translate(-50%,calc(-100% - 12px))}
+}
+@media (min-width:1600px){
+  .rm .rm-locator{display:flex;left:6.35%;bottom:5%}
 }
 
 /* ---- section fades on scroll, driven by SectionFade in App.tsx ---- */

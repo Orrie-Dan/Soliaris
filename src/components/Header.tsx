@@ -96,7 +96,8 @@ export default function Header({
           ))}
         </div>
         <div className="flex shrink-0 items-center gap-3">
-          {renderCta(cta, ctaArrow, "btn-teal hidden shrink-0 sm:inline-flex")}
+          {/* the home bar's wider links leave no room for the CTA between lg and xl */}
+          {renderCta(cta, ctaArrow, `btn-teal hidden shrink-0 sm:inline-flex ${overlay ? "lg:hidden xl:inline-flex" : ""}`)}
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}

@@ -116,7 +116,7 @@ export default function OpportunitiesPage() {
       <Header active="/opportunities" />
 
       {/* ============ HERO · BANJUL FLYOVER ============ */}
-      <section aria-label="Development opportunities" className="relative h-[620px] overflow-hidden bg-deep">
+      <section aria-label="Development opportunities" className="relative flex min-h-[620px] flex-col overflow-hidden bg-deep">
         <div className="absolute right-0 top-0 h-full w-full lg:w-[66%]">
           <img
             src="/images/banjul-aerial.webp"
@@ -133,8 +133,8 @@ export default function OpportunitiesPage() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg,#031B33 0%,#031B33 34%,rgba(3,27,51,.55) 52%,rgba(3,27,51,.05) 78%)" }} aria-hidden="true" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top,rgba(3,27,51,.85) 0%,rgba(3,27,51,.2) 30%,rgba(3,27,51,0) 50%)" }} aria-hidden="true" />
 
-        <div className="relative mx-auto flex h-full max-w-site flex-col justify-center px-6 lg:px-10">
-          <div className="max-w-[600px] pb-[70px]">
+        <div className="relative mx-auto flex w-full max-w-site flex-1 flex-col justify-center px-6 lg:px-10">
+          <div className="max-w-[600px] pb-10 pt-20 lg:pb-[36px] lg:pt-0">
             <p className="eyebrow-dark heroFade d1 mb-[26px]">DEVELOPMENT OPPORTUNITIES</p>
             <h1 className="heroFade d2 m-0 mb-[22px] font-heading text-[42px] font-extrabold leading-[1.07] tracking-[-0.014em] text-white lg:text-[56px]">
               UNLOCKING<br />ENERGY POTENTIAL<br /><span className="text-gold">ACROSS THE REGION</span>
@@ -146,7 +146,7 @@ export default function OpportunitiesPage() {
           </div>
         </div>
 
-        <div className="heroFade d4 absolute inset-x-0 bottom-[34px]">
+        <div className="heroFade d4 relative pb-[34px]">
           <div className="mx-auto flex max-w-site flex-wrap gap-3 px-6 lg:px-10" role="group" aria-label="Filter opportunities by sector">
             {PILLS.map((p) => (
               <button
@@ -171,7 +171,7 @@ export default function OpportunitiesPage() {
           </p>
           <div className="flex flex-wrap items-stretch gap-6">
             {CARDS.filter((c) => filter === "all" || filter === c.tag).map((c) => (
-              <div key={c.tag} className="lift-card min-w-[250px] flex-[1_1_260px] overflow-hidden rounded-md border border-cardline bg-white">
+              <div key={c.tag} className="lift-card min-w-[min(250px,100%)] flex-[1_1_260px] overflow-hidden rounded-md border border-cardline bg-white">
                 <figure className="m-0 h-[170px] overflow-hidden">
                   <img className="zoom-img h-full w-full object-cover" src={c.src} alt={c.alt} />
                 </figure>

@@ -86,7 +86,7 @@ export default function ContactPage() {
 
       {/* ============ CONTACT SPLIT ============ */}
       <section aria-label="Contact Soliaris Africa" className="flex min-h-[860px] flex-wrap">
-        <figure className="relative m-0 min-h-[420px] min-w-[320px] flex-[1_1_400px] bg-deep">
+        <figure className="relative m-0 min-h-[420px] min-w-[min(320px,100%)] flex-[1_1_400px] bg-deep">
           <img
             src="/images/contact-hq.webp"
             alt="Soliaris Africa Ltd headquarters building with palm trees at sunset"
@@ -97,7 +97,7 @@ export default function ContactPage() {
           <span className="absolute inset-0" style={{ background: "linear-gradient(to top,rgba(3,27,51,.3) 0%,rgba(3,27,51,0) 35%)" }} aria-hidden="true" />
         </figure>
 
-        <div id="contact-form" className="min-w-[340px] flex-[1.25_1_520px] scroll-mt-[100px] bg-white px-8 py-16 lg:px-[70px] lg:py-[84px]">
+        <div id="contact-form" className="min-w-[min(340px,100%)] flex-[1.25_1_520px] scroll-mt-[100px] bg-white px-8 py-16 lg:px-[70px] lg:py-[84px]">
           <p className="eyebrow mb-[22px]">GET IN TOUCH</p>
           <h1 className="m-0 mb-4 font-serif text-[32px] font-bold leading-[1.2] text-navy lg:text-[42px]">
             Let&apos;s Build a Brighter<br />Africa Together
@@ -154,7 +154,7 @@ export default function ContactPage() {
                   <input id="cf-country" type="text" autoComplete="country-name" placeholder="Country" value={form.country} onChange={set("country")} />
                 </div>
               </div>
-              <div className="fld basis-full">
+              <div className="fld !flex-none">
                 <label htmlFor="cf-type">INQUIRY TYPE</label>
                 <select id="cf-type" value={form.type} onChange={set("type")}>
                   <option value="general">General Inquiry</option>
@@ -163,7 +163,7 @@ export default function ContactPage() {
                   <option value="media">Media &amp; Other</option>
                 </select>
               </div>
-              <div className="fld basis-full">
+              <div className="fld !flex-none">
                 <label htmlFor="cf-msg">MESSAGE *</label>
                 <textarea id="cf-msg" placeholder="Tell us about your inquiry" value={form.msg} onChange={set("msg")} />
               </div>

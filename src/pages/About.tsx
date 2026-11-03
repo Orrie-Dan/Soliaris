@@ -71,7 +71,7 @@ export default function AboutPage() {
       {/* ============ OUR STORY ============ */}
       <section id="story" aria-label="Our story" className="scroll-mt-[150px] bg-white px-6 pb-[100px] pt-[110px] lg:px-10">
         <div className="mx-auto flex max-w-content flex-wrap items-center gap-[70px]">
-          <div className="min-w-[320px] flex-[1_1_400px]">
+          <div className="min-w-[min(320px,100%)] flex-[1_1_400px]">
             <p className="eyebrow mb-7">OUR STORY</p>
             <h2 className="m-0 mb-7 font-serif text-[36px] font-bold leading-[1.18] tracking-[-0.01em] text-navy lg:text-5xl">
               Built for<br />Africa&apos;s Energy<br />Tomorrow
@@ -87,7 +87,7 @@ export default function AboutPage() {
               <Arrow />
             </a>
           </div>
-          <figure className="storyframe m-0 h-[480px] min-w-[320px] flex-[1.15_1_480px] overflow-hidden rounded-md">
+          <figure className="storyframe m-0 h-[480px] min-w-[min(320px,100%)] flex-[1.15_1_480px] overflow-hidden rounded-md">
             <img
               className="storyimg h-full w-full object-cover"
               src="/images/solar-park-aerial.webp"
@@ -102,7 +102,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-content">
           <p className="eyebrow mb-[54px]">OUR PURPOSE</p>
           <div className="flex flex-wrap">
-            <div className="min-w-[280px] flex-[1_1_300px] py-1 pr-11">
+            <div className="min-w-[min(280px,100%)] flex-[1_1_300px] py-1 pr-11">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#079B87" strokeWidth="1.5" aria-hidden="true">
                 <circle cx="12" cy="12" r="9" />
                 <circle cx="12" cy="12" r="5" />
@@ -114,7 +114,7 @@ export default function AboutPage() {
                 development, innovative technologies and partnerships.
               </p>
             </div>
-            <div id="values" className="min-w-[280px] flex-[1_1_300px] scroll-mt-[170px] border-l border-[#dbe3ea] px-11 py-1">
+            <div id="values" className="min-w-[min(280px,100%)] flex-[1_1_300px] scroll-mt-[170px] border-l border-[#dbe3ea] px-11 py-1">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#079B87" strokeWidth="1.5" aria-hidden="true">
                 <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
                 <circle cx="12" cy="12" r="3" />
@@ -125,7 +125,7 @@ export default function AboutPage() {
                 across West Africa.
               </p>
             </div>
-            <div className="min-w-[280px] flex-[1_1_300px] border-l border-[#dbe3ea] py-1 pl-11">
+            <div className="min-w-[min(280px,100%)] flex-[1_1_300px] border-l border-[#dbe3ea] py-1 pl-11">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#079B87" strokeWidth="1.5" aria-hidden="true">
                 <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3Z" />
                 <path d="M9 12l2 2 4-4.5" />
@@ -142,7 +142,7 @@ export default function AboutPage() {
       {/* ============ GOVERNANCE ============ */}
       <section id="governance" aria-label="Governance" className="scroll-mt-[150px] bg-white px-6 py-[100px] lg:px-10">
         <div className="mx-auto flex max-w-content flex-wrap items-start gap-[70px]">
-          <div className="min-w-[320px] flex-[1_1_400px]">
+          <div className="min-w-[min(320px,100%)] flex-[1_1_400px]">
             <p className="eyebrow mb-[26px]">GOVERNANCE</p>
             <h2 className="m-0 mb-6 font-serif text-[32px] font-bold leading-[1.2] text-navy lg:text-[40px]">
               Sound governance<br />from day one
@@ -153,7 +153,7 @@ export default function AboutPage() {
               foundation of every opportunity we pursue.
             </p>
           </div>
-          <div className="flex min-w-[300px] flex-[1_1_400px] flex-col gap-[26px] pt-3">
+          <div className="flex min-w-[min(300px,100%)] flex-[1_1_400px] flex-col gap-[26px] pt-3">
             {[
               {
                 title: "REGULATORY COMPLIANCE",
