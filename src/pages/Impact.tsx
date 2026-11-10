@@ -129,7 +129,7 @@ export default function ImpactPage() {
         <figure className="relative m-0 min-h-[380px] min-w-[min(320px,100%)] flex-[1_1_440px]">
           <img
             src="/images/impact-commitment.webp"
-            alt="African technician in a safety vest installing a solar panel"
+            alt="SOLIARIS technician in a hard hat and safety harness wiring solar panels on a rooftop"
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
             style={{ objectPosition: "center 30%" }}
