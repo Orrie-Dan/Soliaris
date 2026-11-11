@@ -6,7 +6,7 @@ import { COUNTRIES, LOCATOR, VIEW, project } from "@/data/westAfricaMap";
  * "Where We Focus": the homepage's regional outlook.
  *
  * Real geodata throughout: NASA Blue Marble shaded relief + bathymetry for the terrain and ocean
- * (public/images/regmap-satellite.jpg) and Natural Earth country borders on top
+ * (public/images/regmap.webp, pre-toned from regmap-satellite.jpg) and Natural Earth country borders on top
  * (src/data/westAfricaMap.ts), both built for the same 1920×860 frame by
  * scripts/build-africa-map.mjs. Arcs run from Banjul to each market's capital at their real
  * coordinates; markers and countries can be picked on the map or in the index.
@@ -14,6 +14,7 @@ import { COUNTRIES, LOCATOR, VIEW, project } from "@/data/westAfricaMap";
  * in the right margin (see .rm in globals.css). Below that the copy stacks above a crop of the map.
  */
 
+const IMAGERY = "/images/regmap.webp";
 const W = VIEW.w;
 const H = VIEW.h;
 const GOLD = "#F6B727";
@@ -343,44 +344,15 @@ export default function RegionalMap() {
               <filter id="rm-soft-lg" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="9" />
               </filter>
-              {/* Imagery tone. Land keeps its true colour, with a touch more contrast and saturation
-                  so the Sahel-to-forest transition reads. Only the ocean is darkened, toward
-                  deep navy, while keeping the seafloor relief. */}
-              <filter id="rm-land-tone" colorInterpolationFilters="sRGB">
-                <feColorMatrix type="saturate" values="1.05" />
-                <feComponentTransfer>
-                  <feFuncR type="linear" slope="1.1" intercept="-.04" />
-                  <feFuncG type="linear" slope="1.1" intercept="-.04" />
-                  <feFuncB type="linear" slope="1.1" intercept="-.04" />
-                </feComponentTransfer>
-              </filter>
-              <filter id="rm-sea-tone" colorInterpolationFilters="sRGB">
-                <feColorMatrix type="saturate" values="1.1" />
-                <feComponentTransfer>
-                  <feFuncR type="gamma" amplitude=".8" exponent="1" offset="0" />
-                  <feFuncG type="gamma" amplitude="1.05" exponent=".88" offset="0" />
-                  <feFuncB type="gamma" amplitude="1.18" exponent=".8" offset=".02" />
-                </feComponentTransfer>
-              </filter>
-              {/* land and ocean from the Natural Earth outlines, feathered a little so the seam
-                  with the imagery's own coastline doesn't show */}
-              <filter id="rm-feather" x="-5%" y="-5%" width="110%" height="110%">
-                <feGaussianBlur stdDeviation="1.4" />
-              </filter>
-              <mask id="rm-sea" maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
-                <rect width={W} height={H} fill="#fff" />
-                <path d={LAND} fill="#000" stroke="#000" strokeWidth="1.5" filter="url(#rm-feather)" />
-              </mask>
               <mask id="rm-sea-hard" maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
                 <rect width={W} height={H} fill="#fff" />
                 <path d={LAND} fill="#000" />
               </mask>
             </defs>
 
-            {/* satellite base, land in natural colour (NASA Blue Marble shaded relief + bathymetry) */}
-            <image href="/images/regmap-satellite.jpg" width={W} height={H} preserveAspectRatio="none" filter="url(#rm-land-tone)" />
-            {/* ocean: darkened on its own, over the base */}
-            <image href="/images/regmap-satellite.jpg" width={W} height={H} preserveAspectRatio="none" filter="url(#rm-sea-tone)" mask="url(#rm-sea)" />
+            {/* satellite base (NASA Blue Marble shaded relief + bathymetry), land in natural colour and
+                the ocean darkened, pre-toned by scripts/bake-map-imagery.py */}
+            <image href={IMAGERY} width={W} height={H} preserveAspectRatio="none" />
             {/* clicking the open map (ocean or a country outside the outlook) zooms back out */}
             <rect
               width={W}

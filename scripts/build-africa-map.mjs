@@ -5,6 +5,7 @@
 //     the same frame, fetched from NASA GIBS (public domain).
 //
 // Usage: node scripts/build-africa-map.mjs path/to/ne_50m_admin_0_countries.geojson
+//   then: python scripts/bake-map-imagery.py  (writes the toned public/images/regmap.webp the page shows)
 // Outlines: https://github.com/nvkelso/natural-earth-vector (public domain)
 //
 // The frame is an equirectangular projection with a standard parallel of 14°N, so it lines up
