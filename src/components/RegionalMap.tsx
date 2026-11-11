@@ -157,7 +157,7 @@ const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 function flight(a: Cam, b: Cam) {
   const d = Math.hypot(b.cx - a.cx, b.cy - a.cy) * Math.min(a.s, b.s);
   const dip = clamp(d * 0.6, 0, 0.4);
-  const ms = Math.round(clamp(900 + d * 1500, 900, 2000));
+  const ms = Math.round(clamp(450 + d * 700, 450, 950));
   const at = (t: number): Cam => {
     const e = ease(t);
     const s = Math.exp(Math.log(a.s) + (Math.log(b.s) - Math.log(a.s)) * e) * (1 - dip * Math.sin(Math.PI * t));
@@ -253,11 +253,14 @@ export default function RegionalMap() {
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!from || still) {
       el.style.setProperty("--fly", "0ms");
+      el.style.setProperty("--card", "0ms");
       put(goal);
       return;
     }
     const { ms, at } = flight(from, goal);
     el.style.setProperty("--fly", `${ms}ms`);
+    // The card opens as the map settles rather than after it stops, so a click answers sooner.
+    el.style.setProperty("--card", `${Math.round(ms * 0.6)}ms`);
     // Promote the stage to its own layer only while it moves: a promoted layer is drawn once
     // and then stretched, which blurs the map when zoomed in. Once it stops, it's redrawn sharp.
     el.classList.add("rm-flying");
