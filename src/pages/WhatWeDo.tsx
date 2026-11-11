@@ -36,8 +36,9 @@ const SOLUTIONS: (DetailItem & { id: string; num: string })[] = [
     eyebrow: "02 · POWER GENERATION",
     title: <>POWER GENERATION &amp; DEVELOPMENT</>,
     copy: "Independent power producer projects, power plant development and energy generation capacity for growing demand.",
-    src: "/images/partner-industrial.webp",
-    alt: "Industrial power generation machinery",
+    src: "/images/power-generation-goldenhour.webp",
+    alt: "Power plant with solar panels, wind turbines and transmission lines at golden hour",
+    pos: "60% center",
     overview:
       "Growing economies need dependable power. We take generation projects from concept through development, working towards capacity that meets rising demand.",
     focus: [
@@ -68,9 +69,9 @@ const SOLUTIONS: (DetailItem & { id: string; num: string })[] = [
     eyebrow: "04 · EPC",
     title: <>ENGINEERING, PROCUREMENT &amp; CONSTRUCTION</>,
     copy: "Project engineering, equipment procurement, construction coordination and commissioning.",
-    src: "/images/epc-steel.webp",
-    alt: "Steel framework and crane at an infrastructure construction site",
-    pos: "center 45%",
+    src: "/images/epc-engineers-sunset.webp",
+    alt: "Engineers in hard hats reviewing plans in front of an industrial plant under construction",
+    pos: "70% center",
     overview:
       "Delivery turns plans into working infrastructure. We coordinate engineering, procurement and construction so projects move from design to commissioning.",
     focus: [
@@ -85,8 +86,9 @@ const SOLUTIONS: (DetailItem & { id: string; num: string })[] = [
     eyebrow: "05 · SMART ENERGY",
     title: <>SMART ENERGY SOLUTIONS</>,
     copy: "Smart metering, energy efficiency, monitoring and digital solutions for modern energy systems.",
-    src: "/images/smart-infra.webp",
-    alt: "Engineer working on electrical control and automation panels",
+    src: "/images/smart-energy-sunset.webp",
+    alt: "Engineer using a tablet energy dashboard beside solar panels, wind turbines and a substation",
+    pos: "30% center",
     overview:
       "Modern energy systems run on data. We bring metering, monitoring and efficiency solutions that help utilities and users understand and reduce consumption.",
     focus: [
@@ -101,8 +103,9 @@ const SOLUTIONS: (DetailItem & { id: string; num: string })[] = [
     eyebrow: "06 · INVESTMENT",
     title: <>INVESTMENT &amp; PARTNERSHIPS</>,
     copy: "Co-development, investment structuring and strategic partnerships that bring energy projects to life.",
-    src: "/images/investment-building.webp",
-    alt: "Modern teal glass commercial buildings",
+    src: "/images/investment-handshake.webp",
+    alt: "Business partners shaking hands in front of an industrial plant at sunset",
+    pos: "55% center",
     overview:
       "Energy projects succeed through the right partners and capital. We work with investors, utilities and technology providers to structure and co-develop projects.",
     focus: [
